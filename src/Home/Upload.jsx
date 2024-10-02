@@ -9,7 +9,7 @@ const Upload = () => {
     dispatch(setIsThisBypromptFalse());
   }, []);
   return (
-    <div className="h-screen p-3">
+    <div className="h-screen p-2">
       <UploadDialog />
     </div>
   );

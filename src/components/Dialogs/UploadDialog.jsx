@@ -201,7 +201,7 @@ const UploadDialog = () => {
   ];
 
   return (
-    <div className="bg-customBlack h-full p-3 rounded-md">
+    <div className="bg-black bg-opacity-80 h-full p-4 rounded-md">
       <div className="flex flex-row justify-end w-full">
         <UserModal />
       </div>

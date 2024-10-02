@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "@mui/material";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { CurrencyRupeeSharp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const UserModal = () => {
   const [showDetails, setshowDetails] = useState(false);
-  const [showHistroy, setshowHistroy] = useState(false);
+
+  const currentUser = useSelector((state) => state.auth.user);
+
   const handlepopup = () => {
     setshowDetails(!showDetails);
   };
+
+  const dialogRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+      setshowDetails(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showDetails) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDetails]);
+
   return (
     <>
-      <div className="relative">
+      <div className="relative" ref={dialogRef}>
         <div onClick={handlepopup}>
           <Avatar
             sx={{ bgcolor: "#018081" }}
@@ -19,7 +44,7 @@ const UserModal = () => {
             src="/broken-image.jpg"
             className="z-20"
           >
-            S
+            {currentUser?.name[0].toUpperCase()}
           </Avatar>
         </div>
         {showDetails && (
@@ -39,7 +64,7 @@ const UserModal = () => {
                   />
                 </svg>
                 <div className="font-sans text-customBlue font-bold">
-                  Soumya Banik
+                  {currentUser?.name}
                 </div>
               </div>
               <div className="flex flex-col justify- items-center gap-3 w-full">
@@ -49,7 +74,7 @@ const UserModal = () => {
                 </div>
                 <div className="flex space-x-2 flex-row bg-customBlue p-4  text-white font-bold py-1 border border-black rounded-lg justify-between">
                   <div>Phone Number: </div>
-                  <div className="">+91 XXXXXXXXXX </div>
+                  <div className="">+91 {currentUser?.phoneNumber}</div>
                 </div>
               </div>
             </div>

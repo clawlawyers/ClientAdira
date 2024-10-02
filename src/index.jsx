@@ -9,14 +9,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Toaster } from "react-hot-toast";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-let persistor = persistStore(store);
+// let persistor = persistStore(store);
 root.render(
-  <PersistGate persistor={persistor}>
-    <Provider store={store}>
-      <App />
-      <Toaster />
-    </Provider>
-  </PersistGate>
+  // <PersistGate persistor={persistor}>
+  <Provider store={store}>
+    <App />
+    <Toaster />
+  </Provider>
+  // </PersistGate>
 );
 
 // If you want to start measuring performance in your app, pass a function

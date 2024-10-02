@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, setOtpVerified } from "../../features/authSlice";
+import { setOtpVerified, setUser } from "../../features/authSlice";
 import CloseIcon from "../../assets/svg/CloseIcon";
 import {
   auth,
@@ -17,8 +17,8 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 const LoginDialog = ({ setLoginPopup }) => {
   const dispatch = useDispatch();
   const { isOtpVerified } = useSelector((state) => state.auth);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [localOtp, setLocalOtp] = useState("");
   const [showOtpDialog, setShowOtpDialog] = useState(false);
@@ -115,8 +115,8 @@ const LoginDialog = ({ setLoginPopup }) => {
         }
         const parsedProps = await props.json();
         console.log(parsedProps.data);
-        // dispatch(login({ user: parsedProps.data }));
-        // navigate("/courtroom-ai");
+        dispatch(setUser(parsedProps.data.user));
+        navigate("/");
       })
 
       .catch((error) => {
@@ -156,7 +156,7 @@ const LoginDialog = ({ setLoginPopup }) => {
         <div className="flex flex-col gap-3 pb-10">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
-              <div className="flex flex-row gap-2">
+              {/* <div className="flex flex-row gap-2">
                 <input
                   required
                   value={firstName}
@@ -174,7 +174,7 @@ const LoginDialog = ({ setLoginPopup }) => {
                   className="w-1/2 pl-4 p-2 text-black bg-customInput rounded-[0.625rem] border-2 border-black"
                   type="text"
                 />
-              </div>
+              </div> */}
               <div className="flex flex-row gap-2">
                 <input
                   required

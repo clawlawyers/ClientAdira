@@ -13,6 +13,7 @@ import {
   setIsThisBypromptFalse,
   setIsThisBypromptTrue,
 } from "../features/DocumentSlice";
+import { TextField } from "@mui/material";
 
 const DocDrafter = () => {
   const navigate = useNavigate();
@@ -37,9 +38,9 @@ const DocDrafter = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full p-5">
-      <div className="bg-customBlack flex flex-col space-y-10 p-5 px-7 h-full w-full rounded-md">
-        <div className="flex flex-col w-full justify-between h-full items-center">
+    <div className="flex flex-col h-screen w-full p-2">
+      <div className="bg-black bg-opacity-80 flex flex-col space-y-10 p-4 h-full w-full rounded-md">
+        <div className="flex flex-col w-full h-full items-center">
           <div className="flex w-full flex-row justify-between">
             <button
               className="px-10 py-2 border-white rounded-[0.3125rem] border-2"
@@ -49,13 +50,12 @@ const DocDrafter = () => {
             </button>
             <UserModal />
           </div>
+          <div className="h-full flex flex-col justify-between">
+            <HeroText />
+            <Banner />
 
-          {/* Hero and Banner */}
-          <HeroText />
-          <Banner />
-
-          <div className="flex flex-col gap-2 justify-center w-full">
-            <CustomInput
+            <div className="flex flex-col gap-2 justify-center w-full">
+              {/* <CustomInput
               onSubmit={handleSubmit}
               btn={true}
               placeholder="Type prompt to generate a new document"
@@ -63,8 +63,25 @@ const DocDrafter = () => {
               loading={loading}
               value={prompt}
               required={true}
-            />
-            <Footer />
+            /> */}
+              <div className="flex gap-2">
+                <TextField
+                  fullWidth
+                  id="outlined-multiline-flexible"
+                  size="small"
+                  sx={{ backgroundColor: "white" }}
+                  placeholder="Type prompt to generate a new document"
+                  multiline
+                  maxRows={4}
+                  value={prompt}
+                  onChange={onChange}
+                />
+                <button className="bg-btn-gradient p-2 font-semibold px-4 rounded-md">
+                  Send
+                </button>
+              </div>
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
