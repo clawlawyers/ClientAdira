@@ -26,8 +26,8 @@ const DocDrafter = () => {
     setPromptValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     localStorage.setItem("from", "drafter");
     dispatch(setPrompt(prompt));
     navigate("/Drafter/DrafterArgs");
@@ -64,7 +64,7 @@ const DocDrafter = () => {
               value={prompt}
               required={true}
             /> */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-end">
                 <TextField
                   fullWidth
                   id="outlined-multiline-flexible"
@@ -76,7 +76,10 @@ const DocDrafter = () => {
                   value={prompt}
                   onChange={onChange}
                 />
-                <button className="bg-btn-gradient p-2 font-semibold px-4 rounded-md">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-btn-gradient p-2 font-semibold px-4 rounded-md max-h-fit"
+                >
                   Send
                 </button>
               </div>
