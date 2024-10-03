@@ -77,6 +77,7 @@ const DocDrafter = () => {
                   onChange={onChange}
                 />
                 <button
+                  disabled={prompt === ""}
                   onClick={handleSubmit}
                   className="bg-btn-gradient p-2 font-semibold px-4 rounded-md max-h-fit"
                 >
