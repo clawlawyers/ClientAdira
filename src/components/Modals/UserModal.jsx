@@ -48,13 +48,18 @@ const UserModal = () => {
           </Avatar>
         </div>
         {showDetails && (
-          <div className="absolute z-10 bg-white  text-black font-sans p-3 pl-4 pb-4 pt-[5rem] -right-2  rounded-[0.625rem] text-nowrap -top-2 gap-7  flex flex-col">
-            <div className="flex flex-col shadow-lg rounded-[0.625rem] border-2 border-black p-4 gap-8 justify-between">
-              <div className="flex gap-2 flex-row ">
+          <div
+            className="absolute z-10  text-black font-sans p-3 pl-4 pb-4 pt-[5rem] -right-2  rounded-[0.625rem] text-nowrap -top-2 gap-7  flex flex-col"
+            style={{
+              background: "linear-gradient(90deg, #FFFFFF, #B4B4B4)",
+            }}
+          >
+            <div className="flex flex-col shadow-lg rounded-[0.625rem] border-2 border-customBlue p-4 gap-8 justify-between">
+              <div className="flex gap-2 flex-row items-center ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
+                  width="24"
+                  height="24"
                   viewBox="0 0 20 20"
                   fill="none"
                 >
@@ -68,11 +73,11 @@ const UserModal = () => {
                 </div>
               </div>
               <div className="flex flex-col justify- items-center gap-3 w-full">
-                <div className="flex space-x-2 flex-row w-full bg-customBlue p-4  text-white font-bold py-1 border border-black rounded-lg justify-start">
+                <div className="flex space-x-2 flex-row w-full bg-customBlue p-4  text-white font-bold py-1 border rounded-lg justify-start">
                   <div> Plan: </div>
                   <div className="">Free Tier</div>
                 </div>
-                <div className="flex space-x-2 flex-row bg-customBlue p-4  text-white font-bold py-1 border border-black rounded-lg justify-between">
+                <div className="flex space-x-2 flex-row bg-customBlue p-4  text-white font-bold py-1 border rounded-lg justify-between">
                   <div>Phone Number: </div>
                   <div className="">+91 {currentUser?.phoneNumber}</div>
                 </div>

@@ -9,8 +9,7 @@ export default {
           "linear-gradient(135deg, rgba(0, 110, 110, 0.45) 1.83%, rgba(9, 255, 255, 0.45) 98.17%); ",
         "popup-gradient":
           "linear-gradient(102deg, #018081 0.16%, rgba(0, 67, 67, 1) 99.84%);",
-        "logo-gradient":
-          "linear-gradient(90deg, #018081 0%, rgba(0, 27, 27, 0.00) 100%);",
+        "logo-gradient": "linear-gradient(90deg, #018081 0%, #004343 80%);",
         "upload-card":
           "linear-gradient(102.52deg, #FFFFFF 0.1%, #B4B4B4 99.9%)",
         "hover-gradient": "linear-gradient(90deg, #018081 0%, #00A9AB 100%)",

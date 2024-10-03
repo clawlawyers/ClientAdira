@@ -14,6 +14,7 @@ import "driver.js/dist/driver.css";
 import { steps } from "../utils/tour";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Autocomplete, TextField } from "@mui/material";
+import aiIcon from "../assets/icons/back.gif";
 
 const DocType = () => {
   let navigate = useNavigate();
@@ -77,8 +78,19 @@ const DocType = () => {
   };
 
   return (
-    <main className="flex flex-col h-screen w-full items-center justify-center p-2">
-      <section className="bg-black bg-opacity-80 flex flex-col justify-between items-center h-full rounded-md w-full p-4">
+    <main className="flex flex-col justify-center items-center w-full h-screen p-2 relative">
+      <div
+        className="w-full h-screen absolute p-3 rounded-lg"
+        style={{
+          background: `radial-gradient(circle at 50% 0%, #018585, transparent 45%)`,
+        }}
+      >
+        <img className="w-full h-full opacity-50" src={aiIcon} />
+      </div>
+      <section
+        className="bg-black bg-opacity-20 flex flex-col justify-between items-center h-full rounded-md w-full p-4 z-20"
+        style={{ boxShadow: "0 0 5px white, 0 0 10px white, 0 0 5px white" }}
+      >
         <div className="flex flex-col justify-center items-center w-full h-full ">
           <HomeNav className="w-full" />
           <div className="flex flex-col h-full justify-between">

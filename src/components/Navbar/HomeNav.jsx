@@ -8,10 +8,10 @@ const HomeNav = ({ className }) => {
   return (
     <div className={`${className} flex flex-row justify-between`}>
       <button
-        className="px-10 py-2 border-white rounded-[0.3125rem] border-2"
+        className="px-5 py-2 border-customBlue rounded-full border-[2px]"
         onClick={() => navigation("/")}
       >
-        CLAW Home
+        Home
       </button>
 
       <UserModal />

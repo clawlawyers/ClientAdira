@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setOtpVerified, setUser } from "../../features/authSlice";
-import CloseIcon from "../../assets/svg/CloseIcon";
 import {
   auth,
   PhoneAuthProvider,
@@ -13,11 +12,11 @@ import {
 } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
-import { CircularProgress } from "@mui/material";
-import { motion } from "framer-motion";
+import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
+import { CircularProgress } from "@mui/material";
 
-const LoginDialog = ({ setLoginPopup }) => {
+const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
   const dispatch = useDispatch();
   const { isOtpVerified } = useSelector((state) => state.auth);
   // const [firstName, setFirstName] = useState("");
@@ -63,7 +62,7 @@ const LoginDialog = ({ setLoginPopup }) => {
     );
 
     if (!fetchedResp.ok) {
-      alert("This number is not registered!");
+      toast.error("This number is not registered!");
       return;
     }
 
@@ -108,7 +107,7 @@ const LoginDialog = ({ setLoginPopup }) => {
       .then(async (userCredential) => {
         const user = userCredential.user;
         setIsLoading(false);
-        alert("Phone number verified successfully!");
+        toast.success("Phone number verified successfully!");
 
         const props = await fetch(`${NODE_API_ENDPOINT}/clientAdira/getuser`, {
           method: "GET",
@@ -120,7 +119,7 @@ const LoginDialog = ({ setLoginPopup }) => {
 
         if (!props.ok) {
           setIsLoading(false);
-          alert("User not found!");
+          toast.error("User not found!");
           return;
         }
         const parsedProps = await props.json();
@@ -149,104 +148,100 @@ const LoginDialog = ({ setLoginPopup }) => {
   };
 
   return (
-    <div className="fixed flex backdrop-blur-sm w-full h-full top-0 left-0 items-center justify-center z-50">
-      <div className="w-2/4 flex relative border-white border-2 rounded-[0.625rem] flex-col gap-12 p-10 bg-popup-gradient">
-        <div
-          className="absolute right-3 hover:cursor-pointer top-2"
-          onClick={() => setLoginPopup(false)}
-        >
-          <CloseIcon />
+    // <div className="fixed flex backdrop-blur-sm w-full h-full top-0 left-0 items-center justify-center z-50">
+    <div className="w-full flex relative flex-col gap-12 p-10">
+      <div
+        className="absolute right-3 hover:cursor-pointer top-2"
+        onClick={() => {
+          setLoginPopup(false);
+          setIsOpen(false);
+        }}
+      >
+        <Close />
+      </div>
+      <div className="flex flex-col justify-start items-start gap-1">
+        <div className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] text-black font-bold">
+          Welcome Back !
         </div>
-        <div className="flex flex-col items-center">
-          <div className="font-sans text-[1.5rem] text-white">Log In To</div>
-          <div className="font-sans text-[3.0rem] leading-[3rem] -tracking-[0.09rem] text-white font-extrabold">
-            Adira AI
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 pb-10">
-          {!showOtpDialog ? (
-            <form onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-2">
-                {/* <div className="flex flex-row gap-2">
-                  <input
-                    required
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="First Name"
-                    className="w-1/2 pl-4 p-1 bg-customInput text-black rounded-[0.625rem] border-2 border-black"
-                    type="text"
-                  />
-
-                  <input
-                    required
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Last Name"
-                    className="w-1/2 pl-4 p-2 text-black bg-customInput rounded-[0.625rem] border-2 border-black"
-                    type="text"
-                  />
-                </div> */}
-                <div className="flex flex-row gap-2">
-                  <input
-                    required
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Enter your Number"
-                    className="w-3/4 pl-4 p-2 bg-customInput rounded-[0.625rem] border-2 border-black text-black"
-                    type="text"
-                    disabled={isOtpVerified}
-                  />
-
-                  <motion.button
-                    whileTap={{ scale: "0.95" }}
-                    disabled={isLoading}
-                    type="submit"
-                    className="w-1/4 text-center p-2 bg-customOTP rounded-[0.625rem] border-customBORDER border-2 hover:cursor-pointer"
-                  >
-                    {!isLoading ? (
-                      "Send OTP"
-                    ) : (
-                      <CircularProgress size={15} color="inherit" />
-                    )}
-                  </motion.button>
-                </div>
-              </div>
-            </form>
-          ) : (
-            <div className="flex flex-row gap-2">
+        <p className=" text-sm">
+          Enter Your Mobile Number to Login to{" "}
+          <span className="font-bold">Adira AI</span>
+        </p>
+      </div>
+      {!showOtpDialog ? (
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <input
                 required
-                placeholder="OTP"
-                className="w-2/3 pl-4 p-2 text-black bg-customInput rounded-[0.625rem] border-2 border-black"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder="Enter your Mobile Number"
+                className="w-full pl-4 p-2 bg-customInput rounded border border-black text-black"
                 type="text"
-                value={localOtp}
-                onChange={handleOtpVerification}
+                disabled={isOtpVerified}
               />
-              {/* <div
-                className="w-1/3 p-2 text-center text-nowrap text-white border-white rounded-[0.625rem] border-2 hover:cursor-pointer"
-                
-              >
-                Resend OTP
-              </div> */}
-              <div
-                className="w-1/3 p-2 text-center bg-customOTP rounded-[0.625rem] border-customBORDER border-2 hover:cursor-pointer"
-                onClick={handleVerifyOtp}
-              >
-                {!isLoading ? (
-                  "Verify OTP"
-                ) : (
-                  <CircularProgress size={15} color="inherit" />
-                )}
+              <div className="w-full flex justify-end gap-2">
+                <button
+                  onClick={() => {
+                    setLoginPopup(false);
+                    setIsOpen(false);
+                  }}
+                  className="px-3 py-1 bg-transparent border border-black rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3 py-1 bg-logo-gradient rounded border"
+                >
+                  {!isLoading ? (
+                    "Send OTP"
+                  ) : (
+                    <CircularProgress size={15} color="inherit" />
+                  )}
+                </button>
               </div>
             </div>
-          )}
-
-          {/* {showOtpDialog && (
-          )} */}
+          </div>
+        </form>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <input
+            required
+            placeholder="Enter OTP"
+            className="w-full pl-4 p-2 text-black bg-customInput rounded border border-black"
+            type="text"
+            value={localOtp}
+            onChange={handleOtpVerification}
+          />
+          <div className="w-full flex justify-end gap-2">
+            <button
+              onClick={() => {
+                setLoginPopup(false);
+                setIsOpen(false);
+              }}
+              className="px-3 py-1 bg-transparent border-2 border-black rounded"
+            >
+              Cancel
+            </button>
+            <button
+              disabled={localOtp === ""}
+              onClick={handleVerifyOtp}
+              className="px-3 py-1 bg-logo-gradient rounded border"
+            >
+              {!isLoading ? (
+                "Verify OTP"
+              ) : (
+                <CircularProgress size={15} color="inherit" />
+              )}
+            </button>
+          </div>
         </div>
-        <div id="recaptcha"></div>
-      </div>
+      )}
+      <div id="recaptcha"></div>
     </div>
+    // </div>
   );
 };
 

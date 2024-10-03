@@ -326,9 +326,14 @@ const DrafterArgs = () => {
         <div className="w-[70%] space-y-2 flex flex-col h-full bg-customBlack rounded-md px-5 py-5">
           {/* user */}
           <div className="flex  font-semibold text-lg gap-5 w-full flex-row justify-start items-center">
-            <UserModal />
+            {/* <UserModal /> */}
             <div className="h-20 items-center justify-center flex flex-col overflow-y-auto scrollbar-hide">
-              {prompt}
+              {prompt
+                .split(" ")
+                .map((x) => {
+                  return x[0].toUpperCase() + x.slice(1);
+                })
+                .join(" ")}
             </div>
           </div>
           {/* arguments container */}

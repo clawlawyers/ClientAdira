@@ -3,7 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import styles from "./LoginHome.module.css";
 
-const LoginHome = ({ setLoginPopup }) => {
+const LoginHome = ({ setLoginPopup, setIsOpen }) => {
   return (
     <div className="flex flex-col items-center justify-between w-full h-full p-20">
       <div className="flex flex-col gap-2 items-center text-center">
@@ -11,7 +11,7 @@ const LoginHome = ({ setLoginPopup }) => {
         {/* <div className="font-sans font-semibold text-6xl px-6 py-2 bg-logo-gradient">
             Adira AI
           </div> */}
-        <div className="font-sans w-72 font-semibold text-6xl px-6 py-2 bg-logo-gradient">
+        <div className="font-sans w-72 font-semibold text-6xl px-6 py-2 bg-logo-gradient rounded">
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed out once, initially
@@ -38,7 +38,10 @@ const LoginHome = ({ setLoginPopup }) => {
       </div>
       <motion.div whileHover={{ scale: "1.1" }} className="w-1/3">
         <button
-          onClick={() => setLoginPopup(true)}
+          onClick={() => {
+            setLoginPopup(true);
+            setIsOpen(true);
+          }}
           className={styles.glow_on_hover}
         >
           Login To Continue

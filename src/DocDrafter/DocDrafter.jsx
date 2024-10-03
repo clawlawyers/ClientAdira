@@ -6,6 +6,7 @@ import HeroText from "../components/ui/Hero";
 import Banner from "../components/ui/Banner";
 import { createDoc, getDocFromPrompt } from "../actions/createDoc";
 import { useDispatch, useSelector } from "react-redux";
+import aiIcon from "../assets/icons/back.gif";
 
 import { setPrompt } from "../features/PromptSlice";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ import {
   setIsThisBypromptTrue,
 } from "../features/DocumentSlice";
 import { TextField } from "@mui/material";
+import HomeNav from "../components/Navbar/HomeNav";
 
 const DocDrafter = () => {
   const navigate = useNavigate();
@@ -27,7 +29,6 @@ const DocDrafter = () => {
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
     localStorage.setItem("from", "drafter");
     dispatch(setPrompt(prompt));
     navigate("/Drafter/DrafterArgs");
@@ -38,17 +39,22 @@ const DocDrafter = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full p-2">
-      <div className="bg-black bg-opacity-80 flex flex-col space-y-10 p-4 h-full w-full rounded-md">
+    <div className="flex flex-col justify-center items-center w-full h-screen p-2 relative">
+      <div
+        className="w-full h-screen absolute p-3 rounded-lg"
+        style={{
+          background: `radial-gradient(circle at 50% 0%, #018585, transparent 45%)`,
+        }}
+      >
+        <img className="w-full h-full opacity-50" src={aiIcon} />
+      </div>
+      <div
+        className="flex flex-col h-screen w-full  z-20 gap-3 bg-black bg-opacity-20 rounded-lg p-4"
+        style={{ boxShadow: "0 0 5px white, 0 0 10px white, 0 0 5px white" }}
+      >
         <div className="flex flex-col w-full h-full items-center">
-          <div className="flex w-full flex-row justify-between">
-            <button
-              className="px-10 py-2 border-white rounded-[0.3125rem] border-2"
-              onClick={() => navigate("/")}
-            >
-              CLAW Home
-            </button>
-            <UserModal />
+          <div className="h-[10%] w-full ">
+            <HomeNav />
           </div>
           <div className="h-full flex flex-col justify-between">
             <HeroText />
@@ -64,7 +70,7 @@ const DocDrafter = () => {
               value={prompt}
               required={true}
             /> */}
-              <div className="flex gap-2 items-end">
+              <div className="flex gap-2">
                 <TextField
                   fullWidth
                   id="outlined-multiline-flexible"
@@ -79,7 +85,7 @@ const DocDrafter = () => {
                 <button
                   disabled={prompt === ""}
                   onClick={handleSubmit}
-                  className="bg-btn-gradient p-2 font-semibold px-4 rounded-md max-h-fit"
+                  className="bg-btn-gradient p-2 font-semibold px-4 rounded-md"
                 >
                   Send
                 </button>
