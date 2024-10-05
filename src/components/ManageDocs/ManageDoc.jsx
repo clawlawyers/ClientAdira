@@ -19,6 +19,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setFileBlob } from "../../features/authSlice";
 import analyzingGif from "../../assets/icons/analyze.gif";
+import docIcon from "../../assets/icons/docIcon.png";
+import pdfIcon from "../../assets/icons/pdfIcon.png";
+import aiIcon from "../../assets/icons/back.gif";
 
 const ManageDoc = () => {
   const navigate = useNavigate();
@@ -309,10 +312,18 @@ const ManageDoc = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-3 w-full h-screen ">
-      <div className="bg-[#222222] h-full flex flex-col rounded p-2">
+    <div className="justify-center items-center w-full h-screen p-2 relative">
+      <div
+        className="w-full absolute p-3 rounded-lg top-0 left-0 h-screen -z-10"
+        style={{
+          background: `radial-gradient(circle at 50% 0%, #018585, transparent 45%)`,
+        }}
+      >
+        <img className="w-full h-full opacity-50" src={aiIcon} />
+      </div>
+      <div className="bg-black bg-opacity-20 h-full flex flex-col rounded p-4 z-20">
         <HomeNav className="w-full" />
-        <div className="flex-1 flex flex-col h-[80%] bg-[#001616] rounded mt-2 p-2 ">
+        <div className="flex-1 flex flex-col bg-black bg-opacity-20 h-[80%] rounded-lg mt-2 p-2 ">
           <div className="flex justify-end items-center gap-3">
             <input
               className="py-2 px-5 text-xs rounded-full border-2 border-[#00A9AB] text-black"
@@ -346,8 +357,13 @@ const ManageDoc = () => {
                           setAnchorEl(e.currentTarget);
                           setSelectedFile(x);
                         }}
-                        className="w-24 h-28 cursor-pointer"
-                        src={documentIcon}
+                        className="w-12 h-14 cursor-pointer"
+                        src={
+                          x.name.split("/")[1].split(".")[1].toLowerCase() ===
+                          "pdf"
+                            ? pdfIcon
+                            : docIcon
+                        }
                       />
                       {openDialog && anchorEl && selectedFile === x && (
                         <Popover
@@ -389,7 +405,9 @@ const ManageDoc = () => {
                           </div>
                         </Popover>
                       )}
-                      <p className="text-center">{x.name.split("/")[1]}</p>
+                      <p className="text-center text-sm">
+                        {x.name.split("/")[1]}
+                      </p>
                     </div>
                   ))}
                 </>
@@ -432,9 +450,12 @@ const ManageDoc = () => {
             zIndex: "20",
           }}
         >
-          <div className="bg-[#D2D2D2] w-2/6 rounded p-3 flex flex-col gap-3 justify-center">
-            <div className="flex justify-between items-center">
-              <p className="text-[#004343] text-xl font-bold">File Name</p>
+          <div
+            className=" w-2/6 rounded-xl px-3 py-5 flex flex-col gap-3 justify-center"
+            style={{ background: "linear-gradient(90deg,#018081,#D2D2D2)" }}
+          >
+            <div className="flex justify-between items-center border-b border-white pb-2">
+              <p className="text-white text-xl font-semibold">Rename File ?</p>
               <Close
                 onClick={() => {
                   setEditNameDialog(false);
@@ -484,34 +505,42 @@ const ManageDoc = () => {
             zIndex: "20",
           }}
         >
-          <div className="bg-[#D2D2D2] w-2/6 rounded p-5 flex flex-col gap-3 justify-center">
-            <div className="flex justify-center items-center">
-              <p className="text-[#004343] text-xl font-bold">
-                Are You Sure You Want To Delete File ?
-              </p>
+          <div
+            className=" w-2/6 rounded-xl p-5 flex flex-col gap-3 justify-center"
+            style={{ background: "linear-gradient(90deg,#018081,#D2D2D2)" }}
+          >
+            <div className="flex justify-center items-center border-b border-white pb-3">
+              <p className="text-[#004343] text-xl font-bold">Delete File ?</p>
             </div>
-            <div className="flex justify-center gap-5">
-              <button
-                onClick={() => {
-                  setDeleteFolderDialog(false);
-                  setDeleteFileName("");
-                }}
-                className="border-2 border-[#004343] py-1 px-5 rounded text-[#00A9AB] font-semibold"
-              >
-                Cancel
-              </button>
-              {editLoading ? (
-                <button className="bg-[#00A9AB] py-1 px-5 rounded text-[#004343] font-semibold">
-                  <CircularProgress size={12} color="inherit" />
-                </button>
-              ) : (
+            <div className="flex flex-col gap-10">
+              <div className="flex justify-center">
+                <p className="text-black">
+                  File once deleted can't be reverted back
+                </p>
+              </div>
+              <div className="flex justify-center gap-5">
                 <button
-                  onClick={handleDeleteFile}
-                  className="bg-[#00A9AB] py-1 px-5 rounded text-[#004343] font-semibold"
+                  onClick={() => {
+                    setDeleteFolderDialog(false);
+                    setDeleteFileName("");
+                  }}
+                  className="border-2 border-white py-1 px-5 rounded text-white font-semibold"
                 >
-                  Confirm
+                  Cancel
                 </button>
-              )}
+                {editLoading ? (
+                  <button className="bg-[#00A9AB] py-1 px-5 rounded text-[#004343] font-semibold">
+                    <CircularProgress size={12} color="inherit" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleDeleteFile}
+                    className="bg-[#00A9AB] py-1 px-5 rounded text-white font-semibold"
+                  >
+                    Confirm
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -533,8 +562,11 @@ const ManageDoc = () => {
             zIndex: "20",
           }}
         >
-          <div className="bg-[#D2D2D2] w-2/6 rounded p-5 flex flex-col gap-3 justify-center">
-            <div className="flex justify-between items-center">
+          <div
+            className=" w-2/6 rounded-xl p-5 flex flex-col gap-3 justify-center"
+            style={{ background: "linear-gradient(90deg,#018081,#D2D2D2)" }}
+          >
+            <div className="flex justify-between items-center border-b border-white pb-3">
               <p className="text-[#004343] text-xl font-bold">
                 Upload a New file
               </p>
@@ -543,7 +575,7 @@ const ManageDoc = () => {
                 sx={{ color: "#004343", cursor: "pointer" }}
               />
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center py-3">
               {editLoading ? (
                 <div className="flex items-center gap-2">
                   <CircularProgress size={20} />
@@ -552,7 +584,7 @@ const ManageDoc = () => {
               ) : (
                 <input
                   type="file"
-                  accept=".pdf, .doc, .docx, .txt"
+                  accept=".pdf, .doc, .docx"
                   onChange={handleFileUpload}
                   className="text-[#004343] text-sm border-4 border-white cursor-pointer"
                 />
