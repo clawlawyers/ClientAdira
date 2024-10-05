@@ -33,25 +33,10 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
 
   const navigate = useNavigate();
 
-  // Function to clear children of an element
-  function clearRecaptchaChildren() {
-    const recaptchaElement = document.getElementById("recaptcha");
-
-    if (recaptchaElement) {
-      while (recaptchaElement.firstChild) {
-        recaptchaElement.removeChild(recaptchaElement.firstChild);
-      }
-    } else {
-      console.warn('Element with ID "recaptcha" not found.');
-    }
-  }
-
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    // Example usage
-    clearRecaptchaChildren();
-    // check ether mobile number is registered or not
+
     const fetchedResp = await fetch(
       `${NODE_API_ENDPOINT}/clientAdira/clientAdiraValidation`,
       {
@@ -65,25 +50,28 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
 
     if (!fetchedResp.ok) {
       toast.error("This number is not registered!");
+      setIsLoading(false);
       return;
     }
 
     // handleDisableButton();
     console.log("sendOTP");
 
-    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
-      size: "invisible",
-      callback: (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        console.log(response);
-      },
-      auth,
-    });
+    console.log(window.recaptchaVerifier);
 
-    console.log("I am here");
-    console.log(phoneNumber);
+    if (!window.recaptchaVerifier) {
+      console.log("recaptchaVerifier");
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          console.log(response);
+        },
+        auth,
+      });
+    }
 
-    signInWithPhoneNumber(auth, "+91" + phoneNumber, recaptchaVerifier)
+    signInWithPhoneNumber(auth, "+91" + phoneNumber, window.recaptchaVerifier)
       .then((confirmationResult) => {
         setVerificationId(confirmationResult.verificationId);
         // alert("OTP sent!");
@@ -136,15 +124,6 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
       });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setShowOtpDialog(true);
-  // };
-
-  // const handleVerifyOtp = () => {
-  //   // Simulate OTP verification logic
-  // };
-
   const handleOtpVerification = (e) => {
     setLocalOtp(e.target.value);
   };
@@ -168,6 +147,56 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
 
   const handleRetryClick = async () => {
     setIsDisabled(true);
+
+    const fetchedResp = await fetch(
+      `${NODE_API_ENDPOINT}/clientAdira/clientAdiraValidation`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phoneNumber }),
+      }
+    );
+
+    if (!fetchedResp.ok) {
+      toast.error("This number is not registered!");
+      setIsLoading(false);
+      return;
+    }
+
+    // handleDisableButton();
+    console.log("sendOTP");
+
+    console.log(window.recaptchaVerifier);
+
+    if (!window.recaptchaVerifier) {
+      console.log("recaptchaVerifier");
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          console.log(response);
+        },
+        auth,
+      });
+    }
+
+    signInWithPhoneNumber(auth, "+91" + phoneNumber, window.recaptchaVerifier)
+      .then((confirmationResult) => {
+        setVerificationId(confirmationResult.verificationId);
+        // alert("OTP sent!");
+        toast.success("OTP sent successfully !");
+        setIsLoading(false);
+        setShowOtpDialog(true);
+      })
+      .catch((error) => {
+        // alert("Error during OTP request");
+        toast.error("Error during OTP request");
+        console.error("Error during OTP request:", error);
+        setShowOtpDialog(false);
+        setIsLoading(false);
+      });
 
     //  API call here
   };
@@ -271,7 +300,6 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
           </div>
         </div>
       )}
-      <div id="recaptcha"></div>
     </div>
     // </div>
   );

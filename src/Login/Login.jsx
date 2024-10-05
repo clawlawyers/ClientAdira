@@ -65,6 +65,7 @@ const Login = () => {
           </motion.div>
         )}
       </div>
+      <div id="recaptcha"></div>
     </div>
   );
 };
