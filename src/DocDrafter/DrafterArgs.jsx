@@ -54,6 +54,7 @@ const DrafterArgs = () => {
   const docuText = useSelector((state) => state.document.uploadDocText);
   const isThisByprompt = useSelector((state) => state.document.IsThisByprompt);
   const [uploadDocText, setDocText] = useState("");
+  console.log(uploadDocText);
   const [fallbackText, setFallbackText] = useState();
   const [EssentialReq, setEssentialReq] = useState([]);
   const [OptionalReq, setOptionalReq] = useState([]);
@@ -174,7 +175,7 @@ const DrafterArgs = () => {
       // console.log(uploadDocText);
     } catch (e) {
       setDocText("");
-      toast.error("Failed to fetch data");
+      toast.error("No document type found. Try specifying the document type.");
       console.log(e);
     } finally {
       setIsLoading(false);
@@ -437,7 +438,7 @@ const DrafterArgs = () => {
             <button
               id="Generate"
               onClick={handleGenerate}
-              disabled={loading || reqLoading}
+              disabled={loading || reqLoading || uploadDocText === ""}
               className={`${
                 loading || reqLoading
                   ? "opacity-75 pointer-events-none cursor-not-allowed"

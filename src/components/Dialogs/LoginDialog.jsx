@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setOtpVerified, setUser } from "../../features/authSlice";
@@ -28,6 +28,8 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
   // const [phoneNumber, setPhoneNumber] = useState();
   const [verificationId, setVerificationId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [countdown, setCountdown] = useState(30);
 
   const navigate = useNavigate();
 
@@ -147,6 +149,29 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
     setLocalOtp(e.target.value);
   };
 
+  useEffect(() => {
+    let intervalId;
+    if (isDisabled && countdown > 0) {
+      intervalId = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+
+    if (countdown === 0) {
+      clearInterval(intervalId);
+      setIsDisabled(false);
+      setCountdown(30); // Reset countdown
+    }
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, [isDisabled, countdown]);
+
+  const handleRetryClick = async () => {
+    setIsDisabled(true);
+
+    //  API call here
+  };
+
   return (
     // <div className="fixed flex backdrop-blur-sm w-full h-full top-0 left-0 items-center justify-center z-50">
     <div className="w-full flex relative flex-col gap-12 p-10">
@@ -224,6 +249,13 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
               className="px-3 py-1 bg-transparent border-2 border-black rounded"
             >
               Cancel
+            </button>
+            <button
+              className="px-1 py-1 bg-logo-gradient rounded border w-36"
+              onClick={handleRetryClick}
+              disabled={isDisabled}
+            >
+              {isDisabled ? `Wait ${countdown} seconds...` : "Retry"}
             </button>
             <button
               disabled={localOtp === ""}
