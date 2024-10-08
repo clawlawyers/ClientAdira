@@ -78,6 +78,7 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
         toast.success("OTP sent successfully !");
         setIsLoading(false);
         setShowOtpDialog(true);
+        setIsDisabled(true);
       })
       .catch((error) => {
         // alert("Error during OTP request");
@@ -120,6 +121,8 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
 
       .catch((error) => {
         console.error("Error during OTP verification:", error);
+        toast.error("Error during OTP verification");
+        setIsLoading(false);
         // setProceedToPayment(false);
       });
   };
@@ -270,7 +273,7 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
             onChange={handleOtpVerification}
           />
           <div className="w-full flex justify-end gap-2">
-            <button
+            {/* <button
               onClick={() => {
                 setLoginPopup(false);
                 setIsOpen(false);
@@ -278,7 +281,7 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
               className="px-3 py-1 bg-transparent border-2 border-black rounded"
             >
               Cancel
-            </button>
+            </button> */}
             <button
               className="px-1 py-1 bg-logo-gradient rounded border w-36"
               onClick={handleRetryClick}
