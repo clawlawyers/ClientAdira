@@ -41,15 +41,18 @@ const EditSidebar = () => {
       const doc = res.data.data.fetchedData.updated_document;
       console.log(JSON.stringify(doc));
       dispatch(setUploadDocText(JSON.stringify(doc)));
-      // const res2 = await breakout(doc_id);
-      // console.log(res2.data);
-      // dispatch(setBreakoutData(res2.data));
-      // await axios.post(`${NODE_API_ENDPOINT}/ai-drafter/generate_db`, {
-      //   doc_id: doc_id,
-      // });
+      setQueryLoading(false);
+      setPromptQuery("");
+      setShowQueryTextbox(false);
+
+      const res2 = await breakout(doc_id);
+      console.log(res2.data);
+      dispatch(setBreakoutData(res2.data));
+      await axios.post(`${NODE_API_ENDPOINT}/ai-drafter/generate_db`, {
+        doc_id: doc_id,
+      });
     } catch (error) {
       console.error("Error fetching answer:", error);
-    } finally {
       setQueryLoading(false);
       setPromptQuery("");
       setShowQueryTextbox(false);
