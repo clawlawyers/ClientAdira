@@ -23,7 +23,7 @@ const TextBoxDialog = ({ responseData }) => {
   };
   return (
     <div className="flex flex-col gap-3 p-4">
-      <div className="flex gap-2 flex-row ">
+      {/* <div className="flex gap-2 flex-row ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -37,7 +37,7 @@ const TextBoxDialog = ({ responseData }) => {
           />
         </svg>
         <div className="font-sans text-customBlue font-bold">Soumya Banik</div>
-      </div>
+      </div> */}
       <div className=" font-sans text-sm">{responseData.query}</div>
       <div className=" rounded-[0.625rem] border-[0.1rem] border-white font-sans text-xs p-2 px-3 text-justify bg-customBlue leading-5 ">
         {responseData.response.data.data.fetchedData.answer}
