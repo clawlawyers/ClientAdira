@@ -86,7 +86,7 @@ const Snippets = () => {
   };
 
   return (
-    <div className="flex flex-row h-screen gap-3 p-6">
+    <div className="flex font-sans flex-row h-screen gap-3 p-6">
       <section className="flex flex-col md:flex-row  w-full justify-between items-center space-x-0 md:space-x-5 h-full">
         <div className="flex  flex-col h-full w-full md:w-3/4 gap-6 px-4 md:px-0">
           <NavbarRight />

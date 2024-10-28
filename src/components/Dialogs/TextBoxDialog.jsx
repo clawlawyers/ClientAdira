@@ -63,7 +63,7 @@ const TextBoxDialog = ({ responseData }) => {
               // background: "#0E1118",
               zIndex: 0,
             }}
-            className="bg-customBlack"
+            className="bg-customBlack rounded"
           />
           <span
             style={{
@@ -94,7 +94,7 @@ const TextBoxDialog = ({ responseData }) => {
               // background: "#0E1118",
               zIndex: 0,
             }}
-            className="bg-customBlack"
+            className="bg-customBlack rounded"
           />
           <span
             style={{

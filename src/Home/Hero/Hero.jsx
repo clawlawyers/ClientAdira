@@ -6,7 +6,7 @@ import aiIcon from "../../assets/icons/back.gif";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen p-2 relative">
+    <div className="flex font-sans flex-col justify-center items-center w-full h-screen p-2 relative">
       <div
         className="w-full h-screen absolute p-3 rounded-lg"
         style={{

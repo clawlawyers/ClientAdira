@@ -317,7 +317,7 @@ const DrafterArgs = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-between space-y-2 w-full p-5">
+    <div className="flex font-sans flex-col h-screen justify-between space-y-2 w-full p-5">
       <div className="flex flex-row justify-between w-full items-center">
         <NavbarRight showMenu={false} />
         <NavbarLeft />
@@ -435,7 +435,20 @@ const DrafterArgs = () => {
             >
               {path !== "docType" ? "Re-enter Prompt" : "Re-select doctype"}
             </button>
+            {reqLoading ?
             <button
+              id="Generate"
+              onClick={handleGenerate}
+              disabled={loading || reqLoading || uploadDocText === ""}
+              className={`${
+                loading || reqLoading
+                  ? "opacity-75 pointer-events-none genarate-button cursor-not-allowed"
+                  : ""
+              }border-white border-2 transition ease-in-out duration-1000  hover:scale-110  bg-btn-gradient p-2  rounded-md text-sm`}
+            >
+              {reqLoading ? "Generating ..." : "Generate Document"}
+            </button>
+            : <button
               id="Generate"
               onClick={handleGenerate}
               disabled={loading || reqLoading || uploadDocText === ""}
@@ -447,6 +460,7 @@ const DrafterArgs = () => {
             >
               {reqLoading ? "Generating ..." : "Generate Document"}
             </button>
+            }
           </div>
         </div>
       </div>

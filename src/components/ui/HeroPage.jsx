@@ -37,31 +37,45 @@ const HeroPage = () => {
           AI Powered Legal Document Drafter by CLAW
         </div>
       </div>
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid font-sans md:grid-cols-3 gap-8">
         <div
           onClick={() => navigate("/upload")}
-          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-2 items-center justify-center px-3 py-6 rounded-lg border-2 border-white"
+          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-3 items-center justify-center px-3 py-6 rounded-lg border-2 border-white"
         >
           <img src={Cloud} alt="Upload Icon" />
-          <p className="text-center text-sm px-1">Upload Your Document</p>
+          <div className="flex flex-col  ">
+
+          <p className="text-center text-xl font-bold px-1">Upload Your Document</p>
+          <p className="text-center text-sm px-1">Quickly upload your legal file</p>
+          </div>
         </div>
         <div
           onClick={() => navigate("/Drafter")}
-          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-2 items-center justify-center  px-3 py-6 rounded-lg border-2 border-white"
+          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-3 items-center justify-center  px-3 py-6 rounded-lg border-2 border-white"
         >
           <img src={Prompt} alt="Prompt Icon" />
-          <p className="text-center text-sm  px-1">
+          <div className="flex flex-col ">
+
+          <p className="text-center text-lg font-bold  px-1">
             Create Document from Prompt
           </p>
+          <p className="text-center text-sm  px-1">
+          Describe it, we’ll draft it
+          </p>
+          </div>
         </div>
         <div
           onClick={() => navigate("/DocType")}
-          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-2 items-center justify-center  px-3 py-6 rounded-lg border-2 border-white"
+          className="hover:scale-110 duration-200 cursor-pointer bg-logo-gradient flex flex-col gap-3 items-center justify-center  px-3 py-6 rounded-lg border-2 border-white"
         >
           <img src={Type} alt="Type Icon" />
-          <p className="text-center text-sm  px-1">Select Type of Document</p>
+          <div className="flex flex-col ">
+
+          <p className="text-center text-xl font-bold px-1">Select Type of Document</p>
+          <p className="text-center text-sm  px-1">Quickly upload your legal file</p>
+          </div>
         </div>
-      </div>
+      </div>  
     </div>
   );
 };

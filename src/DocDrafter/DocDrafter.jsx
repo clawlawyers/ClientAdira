@@ -39,7 +39,7 @@ const DocDrafter = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen p-2 relative">
+    <div className="flex flex-col font-sans justify-center items-center w-full h-screen p-2 relative">
       <div
         className="w-full h-screen absolute p-3 rounded-lg"
         style={{
@@ -81,6 +81,7 @@ const DocDrafter = () => {
                   maxRows={4}
                   value={prompt}
                   onChange={onChange}
+                  className="rounded"
                 />
                 <button
                   disabled={prompt === ""}
