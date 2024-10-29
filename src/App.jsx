@@ -139,7 +139,7 @@ function AuthGuard() {
 function App() {
   return (
     <Router>
-    {/* <AuthGuard /> */}
+    <AuthGuard />
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
