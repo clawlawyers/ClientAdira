@@ -30,6 +30,8 @@ const HeroPage = () => {
               fontWeight: "700",
               display: "inline-block",
             }}
+            cursor={false}
+             className="type"
             repeat={Infinity}
           />
         </div>
