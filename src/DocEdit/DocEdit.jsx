@@ -172,10 +172,18 @@ const DocEdit = ({ onSave }) => {
                   className=" text-sm hide-scrollbar p-2 h-full w-full overflow-y-auto overflow-wrap break-word word-wrap break-word"
                   // rehypePlugins={[rehypeRaw]}
                   dangerouslySetInnerHTML={{
-                    __html: text
-                      .replaceAll("u20b9", "₹")
-                      .replace(/\\u20B9/g, "₹")
-                      .replace(/\u20B9/g, "₹"),
+                    __html:( text
+                     .replaceAll("\\\\n\\\\n", "\n  \n")
+                      .replaceAll("\\\\n", "\n")
+                      .replaceAll("\\n\\n", "\n \n")
+                      .replaceAll("\\n", "\n")
+                      .replaceAll("\n", "\n")
+                      .replaceAll("\\", "")
+                      .replaceAll('"', "")
+                      .replaceAll(":", " :")
+                      .replaceAll("#", "")
+                      .replaceAll("\"", "").replaceAll(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replaceAll("u20b9", "₹")
+                      .replaceAll(/\*([^*]+)\*/g, '<strong>$1</strong>'))
                     // .replace(/\\n/, "<br></br>")
                     // .replace(/\\n\\n/, "<br></br><br></br>"),
                     // .replace(/\\/g, "") ,
@@ -237,7 +245,7 @@ const DocEdit = ({ onSave }) => {
                   Save
                 </button>
               ) : (
-                <div className="p-2 rounded-md px-10 border-2 border-teal-700">
+                <div className="p-2 rounded-md genarate-button px-10 border-2 border-teal-700">
                   Loading...
                 </div>
               )}
