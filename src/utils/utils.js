@@ -3,6 +3,12 @@ export const NODE_API_ENDPOINT =
     ? "https://clientadira-backend.onrender.com/api/v1"
     : "http://localhost:8000/api/v1";
 
+export const OTP_ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? "https://claw-app.onrender.com"
+    : "https://claw-app.onrender.com";
+// : "http://localhost:7000";
+
 export function formatAgreementText(text) {
   return (
     text
