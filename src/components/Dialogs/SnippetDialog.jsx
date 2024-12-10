@@ -78,7 +78,7 @@ const SnippetDialog = () => {
               <div className="flex gap-3 text-xs">
                 <motion.button
                   whileHover="hover"
-                  className="rounded relative border-[1px]  w-1/2 bg-hover-gradient hover:text-black hover:border-0 p-2  text-[0.6875rem]"
+                  className="rounded-md relative border-[1px]  w-1/2 bg-hover-gradient hover:text-black hover:border-0 p-2  text-[0.6875rem]"
                   onClick={() => navigate(`/Snippets/Summary/${i}`)} // Use navigate instead of <a>
                 >
                   <motion.div
@@ -96,7 +96,7 @@ const SnippetDialog = () => {
                       // background: "#0E1118",
                       zIndex: 0,
                     }}
-                    className="bg-customBlack"
+                    className="bg-customBlack rounded-md"
                   />
                   <span
                     style={{
@@ -109,7 +109,7 @@ const SnippetDialog = () => {
                 </motion.button>
                 <motion.button
                   whileHover="hover"
-                  className="rounded relative border-[1px] w-1/2 bg-hover-gradient hover:text-black hover:border-0  p-2 text-[0.6875rem]"
+                  className="rounded-md relative border-[1px] w-1/2 bg-hover-gradient hover:text-black hover:border-0  p-2 text-[0.6875rem]"
                   onClick={() => navigate(`/Snippets/Favour/${i}`)} // Use navigate instead of <a>
                 >
                   <motion.div
@@ -127,7 +127,7 @@ const SnippetDialog = () => {
                       // background: "#0E1118",
                       zIndex: 0,
                     }}
-                    className="bg-customBlack"
+                  className="bg-customBlack rounded-md"
                   />
                   <span
                     style={{
@@ -135,7 +135,7 @@ const SnippetDialog = () => {
                       zIndex: 2,
                     }}
                   >
-                    In whose favour
+                    In whose  favour
                   </span>
                 </motion.button>
               </div>
@@ -160,7 +160,7 @@ const SnippetDialog = () => {
                       // background: "#0E1118",
                       zIndex: 0,
                     }}
-                    className="bg-customBlack"
+                    className="bg-customBlack rounded"
                   />
                   <span
                     style={{
@@ -191,7 +191,7 @@ const SnippetDialog = () => {
                       // background: "#0E1118",
                       zIndex: 0,
                     }}
-                    className="bg-customBlack"
+                    className="bg-customBlack rounded"
                   />
                   <span
                     style={{

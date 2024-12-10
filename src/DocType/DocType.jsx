@@ -15,6 +15,7 @@ import { steps } from "../utils/tour";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Autocomplete, TextField } from "@mui/material";
 import aiIcon from "../assets/icons/back.gif";
+import backgif from "../assets/icons/backgif.gif"
 
 const DocType = () => {
   let navigate = useNavigate();
@@ -78,14 +79,14 @@ const DocType = () => {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center w-full h-screen p-2 relative">
+    <main className="flex font-sans flex-col justify-center items-center w-full h-screen p-2 relative">
       <div
         className="w-full h-screen absolute p-3 rounded-lg"
         style={{
           background: `radial-gradient(circle at 50% 0%, #018585, transparent 45%)`,
         }}
       >
-        <img className="w-full h-full opacity-50" src={aiIcon} />
+        <img className="w-full h-full opacity-50" src={backgif} />
       </div>
       <section
         className="bg-black bg-opacity-20 flex flex-col justify-between items-center h-full rounded-md w-full p-4 z-20"
